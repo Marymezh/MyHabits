@@ -1,30 +1,235 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zYk-PH-8wh">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--HabitsViewController-->
+        <scene sceneID="2PH-vr-48B">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <viewController title="HabitsViewController" id="GhW-hc-LKm" customClass="HabitsViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lkX-wS-cZU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <viewLayoutGuide key="safeArea" id="lM2-nt-GtD"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="92b-4S-Re1">
+                        <barButtonItem key="rightBarButtonItem" id="tDw-sK-i1M">
+                            <imageReference key="image" image="plus" catalog="system" symbolScale="large" renderingMode="template"/>
+                            <color key="tintColor" name="Purple Project Color"/>
+                            <connections>
+                                <segue destination="DH0-EU-cZc" kind="presentation" id="Ni3-a3-Jn0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Taf-lX-Xf0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1483" y="-94"/>
+        </scene>
+        <!--Habit View Controller-->
+        <scene sceneID="yGi-Yv-4Hc">
+            <objects>
+                <viewController id="DH0-EU-cZc" customClass="HabitViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eCJ-mV-thS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="jYU-Np-VOu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wjd-bV-b2c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="97" y="74"/>
+            <point key="canvasLocation" x="2193" y="-94"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="u1J-As-aqq">
+            <objects>
+                <tabBarController id="zYk-PH-8wh" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lHh-R1-q88">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" name="Purple Project Color"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="HtM-AH-Han" kind="relationship" relationship="viewControllers" id="6yC-xt-QAA"/>
+                        <segue destination="FaU-3L-qOd" kind="relationship" relationship="viewControllers" id="RjS-D9-TZH"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U3o-Y1-N9U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-222" y="208"/>
+        </scene>
+        <!--Привычки-->
+        <scene sceneID="vP0-3E-BP3">
+            <objects>
+                <navigationController id="HtM-AH-Han" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Привычки" id="8Sv-vy-1xs" colorLabel="IBBuiltInLabel-Red">
+                        <imageReference key="image" image="rectangle.grid.1x2.fill" catalog="system" renderingMode="template"/>
+                    </tabBarItem>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jpM-FE-ePA">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="GhW-hc-LKm" kind="relationship" relationship="rootViewController" id="OMM-mu-mAL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Ec-yR-0Ss" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="614" y="-94"/>
+        </scene>
+        <!--Информация-->
+        <scene sceneID="gsz-sG-ORD">
+            <objects>
+                <navigationController id="FaU-3L-qOd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Информация" id="cY8-eh-fTs">
+                        <imageReference key="image" image="info.circle.fill" catalog="system" renderingMode="template"/>
+                    </tabBarItem>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4dq-sX-nQW">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="gBH-Tf-jlA" kind="relationship" relationship="rootViewController" id="uLv-uN-45o"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fsf-6d-odt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="613" y="585"/>
+        </scene>
+        <!--InfoViewController-->
+        <scene sceneID="hbN-gr-8P1">
+            <objects>
+                <viewController title="InfoViewController" id="gBH-Tf-jlA" customClass="InfoViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JfR-P1-WfO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BB1-IK-0bf">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KZB-jF-A5X">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="722"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="r0z-gN-ImE">
+                                                <rect key="frame" x="16" y="22" width="382" height="678"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Привычка за 21 день" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GdU-kP-9hM">
+                                                        <rect key="frame" x="0.0" y="0.0" width="200.5" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="4E0-Xn-HaR"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Прохождение этапов, за которые за 21 день вырабатывается привычка, подчиняется следующему алгоритму:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="60C-S3-Hel">
+                                                        <rect key="frame" x="0.0" y="36" width="356.5" height="61"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hm4-G4-AgB">
+                                                        <rect key="frame" x="0.0" y="109" width="382" height="81.5"/>
+                                                        <string key="text">1. Провести 1 день без обращения
+к старым привычкам, стараться вести себя так, как будто цель, загаданная
+в перспективу, находится на расстоянии шага.</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2. Выдержать 2 дня в прежнем состоянии самоконтроля." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdW-DX-JZp">
+                                                        <rect key="frame" x="0.0" y="202.5" width="339" height="41"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0J-UN-kAp">
+                                                        <rect key="frame" x="0.0" y="255.5" width="349" height="81.5"/>
+                                                        <string key="text">3. Отметить в дневнике первую неделю изменений и подвести первые итоги — что оказалось тяжело, что — легче,
+с чем еще предстоит серьезно бороться.</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JEI-xz-7bz">
+                                                        <rect key="frame" x="0.0" y="349" width="373" height="122"/>
+                                                        <string key="text">4. Поздравить себя с прохождением первого серьезного порога в 21 день. 
+За это время отказ от дурных наклонностей уже примет форму осознанного преодоления и человек сможет больше работать в сторону принятия положительных качеств.</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6SM-3w-wTk">
+                                                        <rect key="frame" x="0.0" y="483" width="382" height="81.5"/>
+                                                        <string key="text">5. Держать планку 40 дней. Практикующий методику уже чувствует себя освободившимся от прошлого негатива и двигается в нужном направлении с хорошей динамикой.</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PU2-dl-S7I">
+                                                        <rect key="frame" x="0.0" y="576.5" width="356.5" height="101.5"/>
+                                                        <string key="text">6. На 90-й день соблюдения техники все лишнее из «прошлой жизни» перестает напоминать о себе, и человек, оглянувшись назад, осознает себя полностью обновившимся.</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="r0z-gN-ImE" secondAttribute="trailing" constant="16" id="Mo5-2A-fq1"/>
+                                            <constraint firstItem="r0z-gN-ImE" firstAttribute="leading" secondItem="KZB-jF-A5X" secondAttribute="leading" constant="16" id="Mya-q6-LpD"/>
+                                            <constraint firstItem="r0z-gN-ImE" firstAttribute="top" secondItem="KZB-jF-A5X" secondAttribute="top" constant="22" id="XwS-cK-RhZ"/>
+                                            <constraint firstAttribute="bottom" secondItem="r0z-gN-ImE" secondAttribute="bottom" constant="22" id="f7g-qa-nyt"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="KZB-jF-A5X" firstAttribute="width" secondItem="BB1-IK-0bf" secondAttribute="width" id="8FB-xP-MQ6"/>
+                                    <constraint firstAttribute="trailing" secondItem="KZB-jF-A5X" secondAttribute="trailing" id="I9X-gS-ydK"/>
+                                    <constraint firstAttribute="bottom" secondItem="KZB-jF-A5X" secondAttribute="bottom" id="Lq2-d8-qaj"/>
+                                    <constraint firstItem="KZB-jF-A5X" firstAttribute="leading" secondItem="BB1-IK-0bf" secondAttribute="leading" id="Y4z-EL-3lH"/>
+                                    <constraint firstItem="KZB-jF-A5X" firstAttribute="top" secondItem="BB1-IK-0bf" secondAttribute="top" id="rjT-Jr-60X"/>
+                                    <constraint firstItem="KZB-jF-A5X" firstAttribute="height" secondItem="BB1-IK-0bf" secondAttribute="height" priority="250" id="wI7-OI-ArE"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="VTg-7R-pbq"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="sW1-Kv-AdA"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="o5u-UW-baY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BB1-IK-0bf" firstAttribute="leading" secondItem="o5u-UW-baY" secondAttribute="leading" id="7fa-Ke-6wk"/>
+                            <constraint firstItem="o5u-UW-baY" firstAttribute="bottom" secondItem="BB1-IK-0bf" secondAttribute="bottom" id="Jap-er-u5u"/>
+                            <constraint firstItem="o5u-UW-baY" firstAttribute="trailing" secondItem="BB1-IK-0bf" secondAttribute="trailing" id="Lv1-nr-OJJ"/>
+                            <constraint firstItem="BB1-IK-0bf" firstAttribute="top" secondItem="o5u-UW-baY" secondAttribute="top" id="Wfd-bl-mdw"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Информация" id="Kc8-sF-scM"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jcL-7m-AfA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1482.608695652174" y="583.92857142857144"/>
         </scene>
     </scenes>
     <resources>
+        <image name="info.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="rectangle.grid.1x2.fill" catalog="system" width="128" height="101"/>
+        <namedColor name="Purple Project Color">
+            <color red="0.63137254901960782" green="0.086274509803921567" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
