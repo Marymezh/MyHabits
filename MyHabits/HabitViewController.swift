@@ -9,10 +9,13 @@ import UIKit
 
 class HabitViewController: UIViewController {
 
+    @IBAction func cancelModal(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
 
