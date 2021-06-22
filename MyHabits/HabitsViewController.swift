@@ -9,18 +9,18 @@ import UIKit
 
 class HabitsViewController: UIViewController {
 
-   // let appearance = UINavigationBarAppearance()
     
+    let appearance = UINavigationBarAppearance()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-   //     appearance.configureWithDefaultBackground()
-   //     UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        appearance.configureWithDefaultBackground()
+        appearance.backgroundColor = UIColor(named: "Navigation Bar Color")
         navigationItem.title = "Сегодня"
         navigationController?.navigationBar.prefersLargeTitles = true
-  //      navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-  //      appearance.backgroundColor
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+
         navigationController?.navigationBar.backgroundColor = UIColor(named: "Navigation Bar Color")
 
         view.backgroundColor = UIColor(named: "Habits background")
