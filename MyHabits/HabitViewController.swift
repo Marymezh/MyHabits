@@ -6,26 +6,9 @@
 //
 
 import UIKit
+import Combine
 
 class HabitViewController: UIViewController {
-    
-    @IBAction func cancelModal(_ sender: Any) {
-        
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func saveHabit(_ sender: Any) {
-        
-        let newHabit = Habit(name: habitTextfield.text ?? "",
-                             date: timePicker.date,
-                             color: colorButton.backgroundColor ?? .white)
-        
-        let store = HabitsStore.shared
-        store.habits.append(newHabit)
-        
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     
     private let scrollView = UIScrollView()
     
@@ -72,7 +55,20 @@ class HabitViewController: UIViewController {
         return button
     }()
     
-    let colorPicker = UIColorPickerViewController()
+    var cancellable: AnyCancellable?
+    
+    @objc func tapColorButton() {
+        
+        let colorPicker = UIColorPickerViewController()
+        colorPicker.selectedColor = colorButton.backgroundColor!
+        self.cancellable = colorPicker.publisher(for: \.selectedColor)
+            .sink { color in
+                DispatchQueue.main.async {
+                    self.colorButton.backgroundColor = color
+                }
+            }
+        self.present(colorPicker, animated: true, completion: nil)
+    }
     
     private let timeLabel: UILabel = {
         let label = UILabel()
@@ -108,15 +104,52 @@ class HabitViewController: UIViewController {
         return picker
     }()
     
+    @objc func chooseTime(paramdatePicker: UIDatePicker) {
+        
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.dateStyle = .none
+        
+        timeSelectedLabel.text = formatter.string(from: timePicker.date)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigation()
+        setupViews()
+        habitTextfield.delegate = self
+    }
+    
+    func setupNavigation() {
+       
         navigationItem.title = "Создать"
         view.backgroundColor = .white
         
-        setupViews()
-        setupColorPicker()
-        habitTextfield.delegate = self
+        
+    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(returnBack))
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveAndReturn))
+    
+    navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "Purple Project Color")
+    navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "Purple Project Color")
+        
+    }
+    
+    @objc func returnBack() {
+    self.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    @objc func saveAndReturn() {
+    let newHabit = Habit(name: habitTextfield.text ?? "",
+                         date: timePicker.date,
+                         color: colorButton.backgroundColor ?? .white)
+    
+    let store = HabitsStore.shared
+    store.habits.append(newHabit)
+    
+    self.dismiss(animated: true, completion: nil)
+        
     }
     
     func setupViews() {
@@ -176,29 +209,7 @@ class HabitViewController: UIViewController {
         
         NSLayoutConstraint.activate(constraints)
     }
-    
-    func setupColorPicker()
-    {
-        colorPicker.selectedColor = colorButton.backgroundColor!
-        colorPicker.delegate = self
-        
-    }
-    
-    @objc func tapColorButton() {
-        self.present(colorPicker, animated: true, completion: nil)
-    }
-    
-    @objc func chooseTime(paramdatePicker: UIDatePicker) {
-        
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        formatter.dateStyle = .none
-        
-        timeSelectedLabel.text = formatter.string(from: timePicker.date)
-    }
-    
-    
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -234,16 +245,3 @@ extension  HabitViewController: UITextFieldDelegate {
     }
 }
 
-extension HabitViewController: UIColorPickerViewControllerDelegate {
-    
-    //  Called once you have finished picking the color.
-    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
-        colorButton.backgroundColor = viewController.selectedColor
-        
-    }
-    
-    //  Called on every color selection done in the picker.
-    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
-        colorButton.backgroundColor = viewController.selectedColor
-    }
-}

@@ -60,20 +60,7 @@
                         <viewLayoutGuide key="safeArea" id="jYU-Np-VOu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="luy-LF-6cd">
-                        <barButtonItem key="leftBarButtonItem" title="Отменить" id="U4S-pf-2Pp">
-                            <color key="tintColor" name="Purple Project Color"/>
-                            <connections>
-                                <action selector="cancelModal:" destination="DH0-EU-cZc" id="2Kb-iI-jH9"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Сохранить" id="DdN-Nx-iTT">
-                            <color key="tintColor" name="Purple Project Color"/>
-                            <connections>
-                                <action selector="saveHabit:" destination="DH0-EU-cZc" id="QfF-ab-GFZ"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="luy-LF-6cd"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wjd-bV-b2c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
