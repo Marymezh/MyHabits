@@ -59,7 +59,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="jYU-Np-VOu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <color key="tintColor" name="Purple Project Color"/>
                     </view>
                     <navigationItem key="navigationItem" id="luy-LF-6cd">
                         <barButtonItem key="leftBarButtonItem" title="Отменить" id="U4S-pf-2Pp">
@@ -70,6 +69,9 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Сохранить" id="DdN-Nx-iTT">
                             <color key="tintColor" name="Purple Project Color"/>
+                            <connections>
+                                <action selector="saveHabit:" destination="DH0-EU-cZc" id="QfF-ab-GFZ"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </viewController>

@@ -10,8 +10,22 @@ import UIKit
 class HabitViewController: UIViewController {
     
     @IBAction func cancelModal(_ sender: Any) {
+        
         self.dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func saveHabit(_ sender: Any) {
+        
+        let newHabit = Habit(name: habitTextfield.text ?? "",
+                             date: timePicker.date,
+                             color: colorButton.backgroundColor ?? .white)
+        
+        let store = HabitsStore.shared
+        store.habits.append(newHabit)
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
     private let scrollView = UIScrollView()
     
@@ -78,7 +92,7 @@ class HabitViewController: UIViewController {
     
     private let timeSelectedLabel: UILabel = {
         let label = UILabel()
-        label.text = ":"
+        label.text = ""
         label.textColor = UIColor(named: "Purple Project Color")
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         label.toAutoLayout()
