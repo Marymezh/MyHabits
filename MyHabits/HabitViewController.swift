@@ -8,7 +8,7 @@
 import UIKit
 
 class HabitViewController: UIViewController {
-
+    
     @IBAction func cancelModal(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -23,7 +23,7 @@ class HabitViewController: UIViewController {
     }()
     
     private let nameLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "НАЗВАНИЕ"
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.toAutoLayout()
@@ -31,17 +31,18 @@ class HabitViewController: UIViewController {
     }()
     
     private let habitTextfield: UITextField = {
-       let textField = UITextField()
+        let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         textField.layer.borderColor = UIColor.white.cgColor
         textField.textColor = .systemGray2
         textField.placeholder = "Бегать по утрам, спать 8 часов и т.п."
+        textField.returnKeyType = UIReturnKeyType.done
         textField.toAutoLayout()
         return textField
     }()
     
     private let colorLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "ЦВЕТ"
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.toAutoLayout()
@@ -52,12 +53,15 @@ class HabitViewController: UIViewController {
         let button = UIButton()
         button.layer.cornerRadius = 15
         button.backgroundColor = .orange
+        button.addTarget(self, action: #selector(tapColorButton), for: .touchUpInside)
         button.toAutoLayout()
         return button
     }()
     
+    let colorPicker = UIColorPickerViewController()
+    
     private let timeLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "ВРЕМЯ"
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.toAutoLayout()
@@ -65,11 +69,11 @@ class HabitViewController: UIViewController {
     }()
     
     private let timePickerLabel: UILabel = {
-    let label = UILabel()
-     label.text = "Каждый день в "
-     label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-     label.toAutoLayout()
-     return label
+        let label = UILabel()
+        label.text = "Каждый день в "
+        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        label.toAutoLayout()
+        return label
     }()
     
     private let timeSelectedLabel: UILabel = {
@@ -90,17 +94,6 @@ class HabitViewController: UIViewController {
         return picker
     }()
     
-    @objc func chooseTime(paramdatePicker: UIDatePicker) {
-        
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        formatter.dateStyle = .none
-        
-        timeSelectedLabel.text = formatter.string(from: timePicker.date)
-        
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -108,6 +101,8 @@ class HabitViewController: UIViewController {
         view.backgroundColor = .white
         
         setupViews()
+        setupColorPicker()
+        habitTextfield.delegate = self
     }
     
     func setupViews() {
@@ -130,7 +125,7 @@ class HabitViewController: UIViewController {
             habitView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             habitView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             habitView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-        
+            
             nameLabel.topAnchor.constraint(equalTo: habitView.topAnchor, constant: 21),
             nameLabel.leadingAnchor.constraint(equalTo: habitView.leadingAnchor, constant: 16),
             nameLabel.trailingAnchor.constraint(equalTo: habitView.trailingAnchor, constant: -285),
@@ -138,11 +133,11 @@ class HabitViewController: UIViewController {
             habitTextfield.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 7),
             habitTextfield.leadingAnchor.constraint(equalTo: habitView.leadingAnchor, constant: 15),
             habitTextfield.trailingAnchor.constraint(equalTo: habitView.trailingAnchor, constant: -65),
-
+            
             colorLabel.topAnchor.constraint(equalTo: habitTextfield.bottomAnchor, constant: 15),
             colorLabel.leadingAnchor.constraint(equalTo: habitView.leadingAnchor, constant: 16),
             colorLabel.trailingAnchor.constraint(equalTo: habitView.trailingAnchor, constant: -323),
-
+            
             colorButton.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: 7),
             colorButton.leadingAnchor.constraint(equalTo: habitView.leadingAnchor, constant: 16),
             colorButton.widthAnchor.constraint(equalToConstant: 30),
@@ -167,24 +162,74 @@ class HabitViewController: UIViewController {
         
         NSLayoutConstraint.activate(constraints)
     }
+    
+    func setupColorPicker()
+    {
+        colorPicker.selectedColor = colorButton.backgroundColor!
+        colorPicker.delegate = self
+        
+    }
+    
+    @objc func tapColorButton() {
+        self.present(colorPicker, animated: true, completion: nil)
+    }
+    
+    @objc func chooseTime(paramdatePicker: UIDatePicker) {
+        
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.dateStyle = .none
+        
+        timeSelectedLabel.text = formatter.string(from: timePicker.date)
+    }
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc fileprivate func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            
+            scrollView.contentInset.bottom = keyboardSize.height
+            scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+        }
+    }
+    
+    @objc fileprivate func keyboardWillHide(notification: NSNotification) {
+        scrollView.contentInset.bottom = .zero
+        scrollView.verticalScrollIndicatorInsets = .zero
+    }
 }
 
-//extension HabitViewController: datepi {
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 3
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        return 10
-//    }
-//}
-//
-//extension HabitViewController: UIPickerViewDelegate {
-//
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        let result = "row = \(row)"
-//        return result
-//    }
-//
-//}
+extension  HabitViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
 
+extension HabitViewController: UIColorPickerViewControllerDelegate {
+    
+    //  Called once you have finished picking the color.
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        colorButton.backgroundColor = viewController.selectedColor
+        
+    }
+    
+    //  Called on every color selection done in the picker.
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        colorButton.backgroundColor = viewController.selectedColor
+    }
+}
