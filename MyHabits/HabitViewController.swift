@@ -30,6 +30,7 @@ class HabitViewController: UIViewController {
     private let habitTextfield: UITextField = {
         let textField = UITextField()
         textField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        textField.textColor = .black
         textField.layer.borderColor = UIColor.white.cgColor
         textField.textColor = .systemGray2
         textField.placeholder = "Бегать по утрам, спать 8 часов и т.п."
@@ -147,7 +148,7 @@ class HabitViewController: UIViewController {
     
     let store = HabitsStore.shared
     store.habits.append(newHabit)
-    
+        print(store.habits.count)
     self.dismiss(animated: true, completion: nil)
         
     }
