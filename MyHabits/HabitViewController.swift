@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Combine
+
 
 class HabitViewController: UIViewController {
     
@@ -32,7 +32,6 @@ class HabitViewController: UIViewController {
         textField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         textField.textColor = .black
         textField.layer.borderColor = UIColor.white.cgColor
-        textField.textColor = .systemGray2
         textField.placeholder = "Бегать по утрам, спать 8 часов и т.п."
         textField.returnKeyType = UIReturnKeyType.done
         textField.toAutoLayout()
@@ -56,18 +55,11 @@ class HabitViewController: UIViewController {
         return button
     }()
     
-    var cancellable: AnyCancellable?
-    
     @objc func tapColorButton() {
         
         let colorPicker = UIColorPickerViewController()
-        colorPicker.selectedColor = colorButton.backgroundColor!
-        self.cancellable = colorPicker.publisher(for: \.selectedColor)
-            .sink { color in
-                DispatchQueue.main.async {
-                    self.colorButton.backgroundColor = color
-                }
-            }
+        colorPicker.selectedColor = self.colorButton.backgroundColor!
+        colorPicker.delegate = self
         self.present(colorPicker, animated: true, completion: nil)
     }
     
@@ -89,13 +81,12 @@ class HabitViewController: UIViewController {
     
     private let timeSelectedLabel: UILabel = {
         let label = UILabel()
-        label.text = ""
-        label.textColor = UIColor(named: "Purple Project Color")
+        label.textColor = UIColor.purpleTheme
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         label.toAutoLayout()
         return label
     }()
-    
+   
     private let timePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.preferredDatePickerStyle = .wheels
@@ -105,7 +96,7 @@ class HabitViewController: UIViewController {
         return picker
     }()
     
-    @objc func chooseTime(paramdatePicker: UIDatePicker) {
+    @objc func chooseTime(sender: UIDatePicker) {
         
         let formatter = DateFormatter()
         formatter.timeStyle = .short
@@ -118,6 +109,7 @@ class HabitViewController: UIViewController {
         super.viewDidLoad()
         
         setupNavigation()
+        setupCurrentTime()
         setupViews()
         habitTextfield.delegate = self
     }
@@ -131,8 +123,8 @@ class HabitViewController: UIViewController {
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(returnBack))
     navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveAndReturn))
     
-    navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "Purple Project Color")
-    navigationItem.leftBarButtonItem?.tintColor = UIColor(named: "Purple Project Color")
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.purpleTheme
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.purpleTheme
         
     }
     
@@ -142,15 +134,23 @@ class HabitViewController: UIViewController {
     }
     
     @objc func saveAndReturn() {
-    let newHabit = Habit(name: habitTextfield.text ?? "",
+    let newHabit = Habit(name: habitTextfield.text ?? "Привычка без названия",
                          date: timePicker.date,
                          color: colorButton.backgroundColor ?? .white)
     
     let store = HabitsStore.shared
     store.habits.append(newHabit)
+        
         print(store.habits.count)
     self.dismiss(animated: true, completion: nil)
         
+    }
+    
+    func setupCurrentTime() {
+        let timeFormatter = DateFormatter()
+        timeFormatter.timeStyle = .short
+        timeFormatter.dateStyle = .none
+        timeSelectedLabel.text = timeFormatter.string(from: timePicker.date)
     }
     
     func setupViews() {
@@ -175,34 +175,33 @@ class HabitViewController: UIViewController {
             habitView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
             nameLabel.topAnchor.constraint(equalTo: habitView.topAnchor, constant: 21),
-            nameLabel.leadingAnchor.constraint(equalTo: habitView.leadingAnchor, constant: 16),
-            nameLabel.trailingAnchor.constraint(equalTo: habitView.trailingAnchor, constant: -285),
+            nameLabel.leadingAnchor.constraint(equalTo: habitView.leadingAnchor, constant: sideInset),
+            nameLabel.trailingAnchor.constraint(equalTo: habitView.trailingAnchor, constant: -sideInset),
             
             habitTextfield.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 7),
             habitTextfield.leadingAnchor.constraint(equalTo: habitView.leadingAnchor, constant: 15),
-            habitTextfield.trailingAnchor.constraint(equalTo: habitView.trailingAnchor, constant: -65),
+            habitTextfield.trailingAnchor.constraint(equalTo: habitView.trailingAnchor, constant: -sideInset),
             
             colorLabel.topAnchor.constraint(equalTo: habitTextfield.bottomAnchor, constant: 15),
-            colorLabel.leadingAnchor.constraint(equalTo: habitView.leadingAnchor, constant: 16),
-            colorLabel.trailingAnchor.constraint(equalTo: habitView.trailingAnchor, constant: -323),
+            colorLabel.leadingAnchor.constraint(equalTo: habitView.leadingAnchor, constant: sideInset),
+            colorLabel.trailingAnchor.constraint(equalTo: habitView.trailingAnchor, constant: -sideInset),
             
             colorButton.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: 7),
-            colorButton.leadingAnchor.constraint(equalTo: habitView.leadingAnchor, constant: 16),
+            colorButton.leadingAnchor.constraint(equalTo: habitView.leadingAnchor, constant: sideInset),
             colorButton.widthAnchor.constraint(equalToConstant: 30),
             colorButton.heightAnchor.constraint(equalTo: colorButton.widthAnchor),
             
             timeLabel.topAnchor.constraint(equalTo: colorButton.bottomAnchor, constant: 15),
-            timeLabel.leadingAnchor.constraint(equalTo: habitView.leadingAnchor, constant: 16),
-            timeLabel.trailingAnchor.constraint(equalTo: habitView.trailingAnchor, constant: -312),
+            timeLabel.leadingAnchor.constraint(equalTo: habitView.leadingAnchor, constant: sideInset),
+            timeLabel.trailingAnchor.constraint(equalTo: habitView.trailingAnchor, constant: -sideInset),
             
             timePickerLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 7),
-            timePickerLabel.leadingAnchor.constraint(equalTo: habitView.leadingAnchor, constant: 16),
+            timePickerLabel.leadingAnchor.constraint(equalTo: habitView.leadingAnchor, constant: sideInset),
             timePickerLabel.trailingAnchor.constraint(equalTo: timeSelectedLabel.leadingAnchor, constant: -1),
             
             timeSelectedLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 7),
-            timeSelectedLabel.trailingAnchor.constraint(equalTo: habitView.trailingAnchor, constant: -150),
             
-            timePicker.topAnchor.constraint(equalTo: timeSelectedLabel.bottomAnchor, constant: 15),
+            timePicker.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 15),
             timePicker.leadingAnchor.constraint(equalTo: habitView.leadingAnchor),
             timePicker.trailingAnchor.constraint(equalTo: habitView.trailingAnchor),
             timePicker.bottomAnchor.constraint(equalTo: habitView.bottomAnchor)
@@ -210,6 +209,8 @@ class HabitViewController: UIViewController {
         
         NSLayoutConstraint.activate(constraints)
     }
+    
+    private var sideInset: CGFloat { return 16 }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -245,4 +246,17 @@ extension  HabitViewController: UITextFieldDelegate {
         return true
     }
 }
+
+extension HabitViewController: UIColorPickerViewControllerDelegate {
+    
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        self.colorButton.backgroundColor = viewController.selectedColor
+    }
+    
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        self.colorButton.backgroundColor = viewController.selectedColor
+    }
+}
+
+
 

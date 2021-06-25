@@ -35,54 +35,9 @@ class InfoViewController: UIViewController {
         return label
     }()
     
-    private let firstLabel: UILabel = {
+    private let textLabel: UILabel = {
         let label = UILabel()
-        label.text = "1. Провести 1 день без обращения к старым привычкам, стараться вести себя так, как будто цель, загаданная в перспективу, находится на расстоянии шага."
-        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        label.numberOfLines = 0
-        label.toAutoLayout()
-        return label
-    }()
-    
-    private let secondLabel: UILabel = {
-        let label = UILabel()
-        label.text = "2. Выдержать 2 дня в прежнем состоянии самоконтроля."
-        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        label.numberOfLines = 0
-        label.toAutoLayout()
-        return label
-    }()
-    
-    private let thirdLabel: UILabel = {
-        let label = UILabel()
-        label.text = "3. Отметить в дневнике первую неделю изменений и подвести первые итоги — что оказалось тяжело, что — легче, с чем еще предстоит серьезно бороться."
-        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        label.numberOfLines = 0
-        label.toAutoLayout()
-        return label
-    }()
-    
-    private let forthLabel: UILabel = {
-        let label = UILabel()
-        label.text = "4. Поздравить себя с прохождением первого серьезного порога в 21 день. За это время отказ от дурных наклонностей уже примет форму осознанного преодоления и человек сможет больше работать в сторону принятия положительных качеств."
-        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        label.numberOfLines = 0
-        label.toAutoLayout()
-        return label
-    }()
-    
-    private let fifthLabel: UILabel = {
-        let label = UILabel()
-        label.text = "5. Держать планку 40 дней. Практикующий методику уже чувствует себя освободившимся от прошлого негатива и двигается в нужном направлении с хорошей динамикой."
-        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        label.numberOfLines = 0
-        label.toAutoLayout()
-        return label
-    }()
-    
-    private let sixthLabel: UILabel = {
-        let label = UILabel()
-        label.text = "6. На 90-й день соблюдения техники все лишнее из «прошлой жизни» перестает напоминать о себе, и человек, оглянувшись назад, осознает себя полностью обновившимся."
+        label.text = "1. Провести 1 день без обращения к старым привычкам, стараться вести себя так, как будто цель, загаданная в перспективу, находится на расстоянии шага.\n\n2. Выдержать 2 дня в прежнем состоянии самоконтроля. \n\n3. Отметить в дневнике первую неделю изменений и подвести первые итоги — что оказалось тяжело, что — легче, с чем еще предстоит серьезно бороться.\n\n4. Поздравить себя с прохождением первого серьезного порога в 21 день. За это время отказ от дурных наклонностей уже примет форму осознанного преодоления и человек сможет больше работать в сторону принятия положительных качеств. \n\n5. Держать планку 40 дней. Практикующий методику уже чувствует себя освободившимся от прошлого негатива и двигается в нужном направлении с хорошей динамикой. \n\n6. На 90-й день соблюдения техники все лишнее из «прошлой жизни» перестает напоминать о себе, и человек, оглянувшись назад, осознает себя полностью обновившимся."
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         label.numberOfLines = 0
         label.toAutoLayout()
@@ -115,12 +70,7 @@ class InfoViewController: UIViewController {
         scrollView.addSubview(infoView)
         infoView.addSubviews(headerLabel, advicesStack)
         advicesStack.addArrangedSubview(infoLabel)
-        advicesStack.addArrangedSubview(firstLabel)
-        advicesStack.addArrangedSubview(secondLabel)
-        advicesStack.addArrangedSubview(thirdLabel)
-        advicesStack.addArrangedSubview(forthLabel)
-        advicesStack.addArrangedSubview(fifthLabel)
-        advicesStack.addArrangedSubview(sixthLabel)
+        advicesStack.addArrangedSubview(textLabel)
     
         let constraints = [
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -151,14 +101,4 @@ class InfoViewController: UIViewController {
     private var sideInset: CGFloat { return 16 }
 }
 
-extension UIView {
-    func toAutoLayout() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-    }
-}
 
-extension UIView {
-    func addSubviews(_ subviews: UIView...) {
-        subviews.forEach { addSubview($0) }
-    }
-}

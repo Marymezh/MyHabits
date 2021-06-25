@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		CE12830B2682ED1E00FD4BB2 /* HabitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12830A2682ED1E00FD4BB2 /* HabitCollectionViewCell.swift */; };
 		CE12830F2682EDD700FD4BB2 /* ProgressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12830E2682EDD700FD4BB2 /* ProgressCollectionViewCell.swift */; };
+		CE1283132684892A00FD4BB2 /* Custom colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1283122684892A00FD4BB2 /* Custom colors.swift */; };
+		CE128317268569D500FD4BB2 /* ToAutolayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE128316268569D500FD4BB2 /* ToAutolayout.swift */; };
+		CE12831A26856A0E00FD4BB2 /* AddSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12831926856A0E00FD4BB2 /* AddSubviews.swift */; };
 		CE61D70D267B2E8F001C600D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61D70C267B2E8F001C600D /* AppDelegate.swift */; };
 		CE61D70F267B2E8F001C600D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61D70E267B2E8F001C600D /* SceneDelegate.swift */; };
 		CE61D711267B2E8F001C600D /* HabitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE61D710267B2E8F001C600D /* HabitsViewController.swift */; };
@@ -23,6 +26,9 @@
 /* Begin PBXFileReference section */
 		CE12830A2682ED1E00FD4BB2 /* HabitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCollectionViewCell.swift; sourceTree = "<group>"; };
 		CE12830E2682EDD700FD4BB2 /* ProgressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE1283122684892A00FD4BB2 /* Custom colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Custom colors.swift"; sourceTree = "<group>"; };
+		CE128316268569D500FD4BB2 /* ToAutolayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToAutolayout.swift; sourceTree = "<group>"; };
+		CE12831926856A0E00FD4BB2 /* AddSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSubviews.swift; sourceTree = "<group>"; };
 		CE61D709267B2E8F001C600D /* MyHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE61D70C267B2E8F001C600D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE61D70E267B2E8F001C600D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +53,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE12831C26856B4800FD4BB2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CE128316268569D500FD4BB2 /* ToAutolayout.swift */,
+				CE12831926856A0E00FD4BB2 /* AddSubviews.swift */,
+				CE1283122684892A00FD4BB2 /* Custom colors.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CE12831D26856B8900FD4BB2 /* Habits Collecton View */ = {
+			isa = PBXGroup;
+			children = (
+				CE12830E2682EDD700FD4BB2 /* ProgressCollectionViewCell.swift */,
+				CE12830A2682ED1E00FD4BB2 /* HabitCollectionViewCell.swift */,
+				CE61D710267B2E8F001C600D /* HabitsViewController.swift */,
+			);
+			path = "Habits Collecton View";
+			sourceTree = "<group>";
+		};
+		CE12831F268573B000FD4BB2 /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				CE61D70E267B2E8F001C600D /* SceneDelegate.swift */,
+				CE61D70C267B2E8F001C600D /* AppDelegate.swift */,
+			);
+			path = Supporting;
+			sourceTree = "<group>";
+		};
 		CE61D700267B2E8F001C600D = {
 			isa = PBXGroup;
 			children = (
@@ -66,20 +101,26 @@
 		CE61D70B267B2E8F001C600D /* MyHabits */ = {
 			isa = PBXGroup;
 			children = (
-				CE61D70C267B2E8F001C600D /* AppDelegate.swift */,
-				CE61D70E267B2E8F001C600D /* SceneDelegate.swift */,
+				CE12831F268573B000FD4BB2 /* Supporting */,
+				CED4F4742685B6600071E832 /* Storage */,
+				CE12831C26856B4800FD4BB2 /* Extensions */,
+				CE12831D26856B8900FD4BB2 /* Habits Collecton View */,
+				CE7DAAFD267F1B7B00458FA1 /* HabitViewController.swift */,
 				CEB2AC7B267F02DE000AF36F /* HabitsStore.swift */,
 				CEB2AC81267F06B4000AF36F /* InfoViewController.swift */,
-				CE7DAAFD267F1B7B00458FA1 /* HabitViewController.swift */,
-				CE12830A2682ED1E00FD4BB2 /* HabitCollectionViewCell.swift */,
-				CE12830E2682EDD700FD4BB2 /* ProgressCollectionViewCell.swift */,
-				CE61D710267B2E8F001C600D /* HabitsViewController.swift */,
 				CE61D712267B2E8F001C600D /* Main.storyboard */,
-				CE61D715267B2E98001C600D /* Assets.xcassets */,
 				CE61D717267B2E98001C600D /* LaunchScreen.storyboard */,
 				CE61D71A267B2E98001C600D /* Info.plist */,
 			);
 			path = MyHabits;
+			sourceTree = "<group>";
+		};
+		CED4F4742685B6600071E832 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				CE61D715267B2E98001C600D /* Assets.xcassets */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,11 +194,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE12830B2682ED1E00FD4BB2 /* HabitCollectionViewCell.swift in Sources */,
+				CE1283132684892A00FD4BB2 /* Custom colors.swift in Sources */,
 				CEB2AC7C267F02DE000AF36F /* HabitsStore.swift in Sources */,
 				CE7DAAFE267F1B7B00458FA1 /* HabitViewController.swift in Sources */,
+				CE12831A26856A0E00FD4BB2 /* AddSubviews.swift in Sources */,
 				CE61D711267B2E8F001C600D /* HabitsViewController.swift in Sources */,
 				CE61D70D267B2E8F001C600D /* AppDelegate.swift in Sources */,
 				CEB2AC82267F06B4000AF36F /* InfoViewController.swift in Sources */,
+				CE128317268569D500FD4BB2 /* ToAutolayout.swift in Sources */,
 				CE12830F2682EDD700FD4BB2 /* ProgressCollectionViewCell.swift in Sources */,
 				CE61D70F267B2E8F001C600D /* SceneDelegate.swift in Sources */,
 			);
