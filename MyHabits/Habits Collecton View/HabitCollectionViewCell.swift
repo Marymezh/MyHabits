@@ -7,13 +7,9 @@
 
 import UIKit
 
-protocol HabitCollectionViewCellDelegate: class {
-    func markHabit(_habit: Habit)
-}
-
 class HabitCollectionViewCell: UICollectionViewCell {
 
-    weak var delegate: HabitCollectionViewCellDelegate?
+    var isChecked: (() -> Void)?
     
     var habit: Habit? {
         didSet {
@@ -21,6 +17,14 @@ class HabitCollectionViewCell: UICollectionViewCell {
             habitNameLabel.textColor = habit?.color
             habitTimeLabel.text = habit?.dateString
             habitButton.layer.borderColor = habit?.color.cgColor
+            counterValueLabel.text = "\(habit?.trackDates.count ?? 0)"
+            
+            if self.habit?.isAlreadyTakenToday == true {
+                habitButton.backgroundColor = habit?.color
+                checkmarkSetup()
+            } else {
+                habitButton.backgroundColor = .white
+            }
         }
     }
     
@@ -49,11 +53,10 @@ class HabitCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let counterValueLabel: UILabel = {
+    private lazy var counterValueLabel: UILabel = {
        let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.textColor = .systemGray2
-        label.text = "0"
         label.toAutoLayout()
         return label
     }()
@@ -62,7 +65,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
         let button = UIButton()
         button.layer.cornerRadius = 19
         button.layer.borderWidth = 1
-//        button.alpha = 0.1
         button.backgroundColor = .white
         button.addTarget(self, action: #selector(tapHabitButton), for: UIControl.Event.touchUpInside)
         button.toAutoLayout()
@@ -71,22 +73,22 @@ class HabitCollectionViewCell: UICollectionViewCell {
     
     @objc func tapHabitButton() {
         guard let habit = habit else { return }
-        delegate?.markHabit(_habit: habit)
         
-        let imageSize = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        let configuration = UIImage.SymbolConfiguration(font: imageSize)
-        let image = UIImage(systemName: "checkmark", withConfiguration: configuration)
-    
-//        habitButton.alpha = 1
-        habitButton.setImage(image, for: UIControl.State.normal)
-        habitButton.tintColor = .white
-        counterValueLabel.text = "1"
-        
-        habitButton.backgroundColor = self.habit?.color
-        
+        if habit.isAlreadyTakenToday == false {
+            HabitsStore.shared.track(habit)
+            habitButton.backgroundColor = self.habit?.color
+            checkmarkSetup()
+            counterValueLabel.text = "\(habit.trackDates.count)"
+            if let trackHabit = isChecked {
+                trackHabit()
+            }
+            print ("habit \(habit.name) is tracked today")
+        } else {
+            print ("The habit is already tracked today")
+        }
     }
     
-    @available(*, unavailable)
+//    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -95,26 +97,27 @@ class HabitCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         contentView.layer.cornerRadius = 8
+        contentView.layer.masksToBounds = true
         contentView.backgroundColor = .white
-        
         contentView.addSubviews(habitNameLabel, habitTimeLabel, counterLabel, counterValueLabel, habitButton)
+        
+        checkmarkSetup()
         
         let constraints = [
         
             habitNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             habitNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            habitNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -trailingInset),
+            habitNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -103),
             
             habitTimeLabel.topAnchor.constraint(equalTo: habitNameLabel.bottomAnchor, constant: 4),
             habitTimeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             habitTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -trailingInset),
             
-            counterLabel.topAnchor.constraint(equalTo: habitTimeLabel.bottomAnchor, constant: 30),
             counterLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             counterLabel.trailingAnchor.constraint(equalTo: counterValueLabel.leadingAnchor, constant: -1),
             counterLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             
-            counterValueLabel.topAnchor.constraint(equalTo: habitTimeLabel.bottomAnchor, constant: 30),
+            counterValueLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             
             habitButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 46),
             habitButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -25),
@@ -124,6 +127,14 @@ class HabitCollectionViewCell: UICollectionViewCell {
         ]
         
         NSLayoutConstraint.activate(constraints)
+    }
+    
+   func checkmarkSetup() {
+        let imageSize = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        let configuration = UIImage.SymbolConfiguration(font: imageSize)
+        let image = UIImage(systemName: "checkmark", withConfiguration: configuration)
+        habitButton.setImage(image, for: UIControl.State.normal)
+        habitButton.tintColor = .white
     }
     
     private var trailingInset: CGFloat { return 16 }

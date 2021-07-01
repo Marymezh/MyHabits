@@ -9,10 +9,6 @@ import UIKit
 
 class ProgressCollectionViewCell: UICollectionViewCell {
     
-    let store = HabitsStore.shared
-    
-    private lazy var progress = Progress(totalUnitCount: Int64(store.habits.count))
-    
     private let progressLabel: UILabel = {
        let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
@@ -25,7 +21,6 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     private let progressPercentLabel: UILabel = {
        let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        label.text = "50%"
         label.textColor = .systemGray
         label.textAlignment = .right
         label.toAutoLayout()
@@ -37,11 +32,10 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         progressBar.progressViewStyle = .bar
         progressBar.trackTintColor = .systemGray2
         progressBar.progressTintColor = UIColor.purpleTheme
-        progressBar.setProgress(0.0, animated: false)
-        
         progressBar.toAutoLayout()
         return progressBar
     }()
+    
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
@@ -50,7 +44,12 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        updateProgress()
+        setupViews()
+
+    }
         
+        func setupViews() {
         contentView.addSubviews(progressLabel, progressPercentLabel, progressBar)
         contentView.layer.cornerRadius = 8
         contentView.backgroundColor = .white
@@ -72,4 +71,11 @@ class ProgressCollectionViewCell: UICollectionViewCell {
 
         NSLayoutConstraint.activate(constraints)
     }
+    
+    func updateProgress() {
+        progressBar.setProgress(HabitsStore.shared.todayProgress, animated: false)
+        progressPercentLabel.text = "\(Int(HabitsStore.shared.todayProgress * 100))%"
+        print ("progress is \(Int(HabitsStore.shared.todayProgress * 100)) %")
+    }
+    
 }

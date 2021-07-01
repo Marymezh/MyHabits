@@ -21,6 +21,7 @@
 		CE7DAAFE267F1B7B00458FA1 /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7DAAFD267F1B7B00458FA1 /* HabitViewController.swift */; };
 		CEB2AC7C267F02DE000AF36F /* HabitsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB2AC7B267F02DE000AF36F /* HabitsStore.swift */; };
 		CEB2AC82267F06B4000AF36F /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB2AC81267F06B4000AF36F /* InfoViewController.swift */; };
+		CED4F478268B05FE0071E832 /* HabitDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED4F477268B05FE0071E832 /* HabitDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		CE7DAAFD267F1B7B00458FA1 /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
 		CEB2AC7B267F02DE000AF36F /* HabitsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsStore.swift; sourceTree = "<group>"; };
 		CEB2AC81267F06B4000AF36F /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		CED4F477268B05FE0071E832 /* HabitDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				CE12831C26856B4800FD4BB2 /* Extensions */,
 				CE12831D26856B8900FD4BB2 /* Habits Collecton View */,
 				CE7DAAFD267F1B7B00458FA1 /* HabitViewController.swift */,
+				CED4F477268B05FE0071E832 /* HabitDetailsViewController.swift */,
 				CEB2AC7B267F02DE000AF36F /* HabitsStore.swift */,
 				CEB2AC81267F06B4000AF36F /* InfoViewController.swift */,
 				CE61D712267B2E8F001C600D /* Main.storyboard */,
@@ -197,6 +200,7 @@
 				CE1283132684892A00FD4BB2 /* Custom colors.swift in Sources */,
 				CEB2AC7C267F02DE000AF36F /* HabitsStore.swift in Sources */,
 				CE7DAAFE267F1B7B00458FA1 /* HabitViewController.swift in Sources */,
+				CED4F478268B05FE0071E832 /* HabitDetailsViewController.swift in Sources */,
 				CE12831A26856A0E00FD4BB2 /* AddSubviews.swift in Sources */,
 				CE61D711267B2E8F001C600D /* HabitsViewController.swift in Sources */,
 				CE61D70D267B2E8F001C600D /* AppDelegate.swift in Sources */,

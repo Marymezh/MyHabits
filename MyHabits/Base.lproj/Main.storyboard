@@ -134,6 +134,21 @@
             </objects>
             <point key="canvasLocation" x="1482.608695652174" y="583.92857142857144"/>
         </scene>
+        <!--Habit Details View Controller-->
+        <scene sceneID="nOW-c0-46k">
+            <objects>
+                <viewController storyboardIdentifier="HabitDetails" id="vXw-TP-hNy" customClass="HabitDetailsViewController" customModule="MyHabits" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ggb-CE-0Cx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="yLn-mo-tzz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z5J-sl-QGi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2181" y="585"/>
+        </scene>
     </scenes>
     <resources>
         <image name="info.circle.fill" catalog="system" width="128" height="121"/>

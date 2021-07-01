@@ -22,10 +22,11 @@ class HabitsViewController: UIViewController {
         setupCollectionView()
 }
     func setupAppearance() {
-        appearance.configureWithDefaultBackground()
+        appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor.navBarTheme
         navigationItem.title = "Сегодня"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
 
     }
@@ -48,13 +49,11 @@ class HabitsViewController: UIViewController {
         ]
 
         NSLayoutConstraint.activate(constraints)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.habitsCollectionView.delegate = self
-        self.habitsCollectionView.dataSource = self
-        
         habitsCollectionView.reloadData()
     }
 
@@ -66,7 +65,6 @@ extension HabitsViewController: UICollectionViewDataSource {
         return 2
     }
 
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -77,22 +75,34 @@ extension HabitsViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let progressCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ProgressCollectionViewCell.self), for: indexPath) as! ProgressCollectionViewCell
-        
-        
-        let habitCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HabitCollectionViewCell.self), for: indexPath) as! HabitCollectionViewCell
-        
-        habitCell.habit = store.habits[indexPath.item]
-//        habitCell.delegate = self
         
         switch indexPath.section{
 
         case 0:
+            let progressCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ProgressCollectionViewCell.self), for: indexPath) as! ProgressCollectionViewCell
+            progressCell.updateProgress()
+
             return progressCell
         default:
+            let habitCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: HabitCollectionViewCell.self), for: indexPath) as! HabitCollectionViewCell
+            
+            habitCell.habit = store.habits[indexPath.item]
+            habitCell.isChecked = { self.habitsCollectionView.reloadData() }
+            
             return habitCell
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 1: let vc = HabitDetailsViewController()
+            vc.habit = (collectionView.cellForItem(at: indexPath) as! HabitCollectionViewCell).habit
+            navigationController?.pushViewController(vc, animated: true)
+        default: break
+            
+        }
+    }
+
 }
 
 extension HabitsViewController: UICollectionViewDelegateFlowLayout {
@@ -124,3 +134,4 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
         }
     }
 }
+
