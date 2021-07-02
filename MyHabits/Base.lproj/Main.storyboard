@@ -37,7 +37,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Nig-EH-HB3">
             <objects>
-                <navigationController hidesBarsWhenVerticallyCompact="YES" id="ygj-Mt-W3i" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HabitNC" hidesBarsWhenVerticallyCompact="YES" id="ygj-Mt-W3i" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Uzs-KL-9cz">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

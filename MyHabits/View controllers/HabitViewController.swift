@@ -9,6 +9,12 @@ import UIKit
 
 
 class HabitViewController: UIViewController {
+   
+    var habit: Habit? {
+        didSet {
+            editHabit()
+        }
+    }
     
     private let scrollView = UIScrollView()
     
@@ -97,7 +103,6 @@ class HabitViewController: UIViewController {
     }()
     
     @objc func chooseTime(sender: UIDatePicker) {
-        
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         formatter.dateStyle = .none
@@ -105,9 +110,39 @@ class HabitViewController: UIViewController {
         timeSelectedLabel.text = formatter.string(from: timePicker.date)
     }
     
+    private let removeButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .white
+        button.setTitle("Удалить привычку", for: .normal)
+        button.setTitleColor(UIColor.redTheme, for: .normal)
+        button.addTarget(self, action: #selector(showAlertController), for: .touchUpInside)
+        button.toAutoLayout()
+        return button
+    }()
+    
+    @objc func showAlertController() {
+        
+        guard let habitToRemove = habit else { return }
+        let alertController = UIAlertController(title: "Удалить привычку", message: "Вы хотите удалить привычку \"\(habitToRemove.name)\"?", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Отмена", style: .cancel)
+        let confirm = UIAlertAction(title: "Удалить", style: .default) { (action:UIAlertAction) in
+            self.removeHabit()
+            self.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(cancel)
+        alertController.addAction(confirm)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func removeHabit() {
+        HabitsStore.shared.habits.removeAll{$0 == self.habit}
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "goToHabitsVC"), object: nil)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        editHabit()
         setupNavigation()
         setupCurrentTime()
         setupViews()
@@ -115,17 +150,12 @@ class HabitViewController: UIViewController {
     }
     
     func setupNavigation() {
-       
-        navigationItem.title = "Создать"
+        
         view.backgroundColor = .white
+        navigationController?.navigationBar.tintColor = UIColor.purpleTheme
         
-        
-    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(returnBack))
-    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveAndReturn))
-    
-        navigationItem.rightBarButtonItem?.tintColor = UIColor.purpleTheme
-        navigationItem.leftBarButtonItem?.tintColor = UIColor.purpleTheme
-        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(returnBack))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveAndReturn))
     }
     
     @objc func returnBack() {
@@ -134,16 +164,21 @@ class HabitViewController: UIViewController {
     }
     
     @objc func saveAndReturn() {
-    let newHabit = Habit(name: habitTextfield.text ?? "Привычка без названия",
-                         date: timePicker.date,
-                         color: colorButton.backgroundColor ?? .white)
-    
-    let store = HabitsStore.shared
-    store.habits.append(newHabit)
-        
-        print(store.habits.count)
-    self.dismiss(animated: true, completion: nil)
-        
+        if let changedHabit = self.habit {
+            changedHabit.name = habitTextfield.text ?? ""
+            changedHabit.date = timePicker.date
+            changedHabit.color = colorButton.backgroundColor ?? .white
+        } else {
+            let newHabit = Habit(name: habitTextfield.text ?? "",
+                                 date: timePicker.date,
+                                 color: colorButton.backgroundColor ?? .white)
+            
+            let store = HabitsStore.shared
+            store.habits.append(newHabit)
+            print(store.habits.count)
+        }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "changeTitle"), object: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func setupCurrentTime() {
@@ -159,7 +194,7 @@ class HabitViewController: UIViewController {
         
         view.addSubview(scrollView)
         scrollView.addSubview(habitView)
-        habitView.addSubviews(nameLabel, habitTextfield, colorLabel, colorButton, timeLabel, timePickerLabel, timeSelectedLabel, timePicker)
+        habitView.addSubviews(nameLabel, habitTextfield, colorLabel, colorButton, timeLabel, timePickerLabel, timeSelectedLabel, timePicker, removeButton)
         
         let constraints = [
             
@@ -204,10 +239,33 @@ class HabitViewController: UIViewController {
             timePicker.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 15),
             timePicker.leadingAnchor.constraint(equalTo: habitView.leadingAnchor),
             timePicker.trailingAnchor.constraint(equalTo: habitView.trailingAnchor),
-            timePicker.bottomAnchor.constraint(equalTo: habitView.bottomAnchor)
+            
+            removeButton.topAnchor.constraint(equalTo: timePicker.bottomAnchor, constant: 270),
+            removeButton.centerXAnchor.constraint(equalTo: habitView.centerXAnchor),
+            removeButton.bottomAnchor.constraint(equalTo: habitView.bottomAnchor)
+            
         ]
         
         NSLayoutConstraint.activate(constraints)
+    }
+    
+    func editHabit() {
+        if let changedHabit = habit {
+            habitTextfield.text = changedHabit.name
+            habitTextfield.textColor = changedHabit.color
+            habitTextfield.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+            colorButton.backgroundColor = changedHabit.color
+            timePicker.date = changedHabit.date
+            navigationItem.title = "Править"
+            removeButton.isHidden = false
+        }
+        else {
+            habitTextfield.text  = ""
+            colorButton.backgroundColor = UIColor.orangeTheme
+            timePicker.date = Date()
+            navigationItem.title = "Создать"
+            removeButton.isHidden = true
+        }
     }
     
     private var sideInset: CGFloat { return 16 }
@@ -257,6 +315,3 @@ extension HabitViewController: UIColorPickerViewControllerDelegate {
         self.colorButton.backgroundColor = viewController.selectedColor
     }
 }
-
-
-

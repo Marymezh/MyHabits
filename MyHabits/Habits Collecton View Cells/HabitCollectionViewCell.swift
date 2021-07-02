@@ -64,7 +64,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
     private lazy var habitButton: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = 19
-        button.layer.borderWidth = 1
+        button.layer.borderWidth = 3
         button.backgroundColor = .white
         button.addTarget(self, action: #selector(tapHabitButton), for: UIControl.Event.touchUpInside)
         button.toAutoLayout()
