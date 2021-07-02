@@ -9,10 +9,7 @@ import UIKit
 
 class HabitDetailsViewController: UIViewController {
     
-    var habit: Habit? {
-        didSet {
-        }
-    }
+    var habit: Habit? 
     
     let tableView = UITableView(frame: .zero, style: .grouped)
     
@@ -58,12 +55,12 @@ extension HabitDetailsViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
        
-        let dateText = HabitsStore.shared.dates.count - indexPath.item - 1
-        cell.textLabel?.text = "\(HabitsStore.shared.trackDateString(forIndex: dateText) ?? "") "
+        let datesTracked = HabitsStore.shared.dates.count - indexPath.item - 1
+        cell.textLabel?.text = "\(HabitsStore.shared.trackDateString(forIndex: datesTracked) ?? "") "
         cell.tintColor = UIColor.purpleTheme
 
-        let selectedHabit = habit
-            let date = HabitsStore.shared.dates[dateText]
+        let selectedHabit = self.habit
+            let date = HabitsStore.shared.dates[datesTracked]
         if HabitsStore.shared.habit(selectedHabit!, isTrackedIn: date) {
             cell.accessoryType = .checkmark
         } else {

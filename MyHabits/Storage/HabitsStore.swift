@@ -93,11 +93,14 @@ public final class HabitsStore {
     public static let shared: HabitsStore = .init()
     
     /// Список привычек, добавленных пользователем. Добавленные привычки сохраняются в UserDefaults и доступны после перезагрузки приложения.
-    public var habits: [Habit] = [] {
+    public var habits: [Habit] = []
+    {
         didSet {
             save()
         }
     }
+    
+ //   habits.sort(by: { $0.date < $1.date })
     
     /// Даты с момента установки приложения с разницей в один день.
     public var dates: [Date] {

@@ -65,14 +65,13 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		CE12831D26856B8900FD4BB2 /* Habits Collecton View */ = {
+		CE12831D26856B8900FD4BB2 /* Habits Collecton View Cells */ = {
 			isa = PBXGroup;
 			children = (
 				CE12830E2682EDD700FD4BB2 /* ProgressCollectionViewCell.swift */,
 				CE12830A2682ED1E00FD4BB2 /* HabitCollectionViewCell.swift */,
-				CE61D710267B2E8F001C600D /* HabitsViewController.swift */,
 			);
-			path = "Habits Collecton View";
+			path = "Habits Collecton View Cells";
 			sourceTree = "<group>";
 		};
 		CE12831F268573B000FD4BB2 /* Supporting */ = {
@@ -103,14 +102,11 @@
 		CE61D70B267B2E8F001C600D /* MyHabits */ = {
 			isa = PBXGroup;
 			children = (
-				CE12831F268573B000FD4BB2 /* Supporting */,
-				CED4F4742685B6600071E832 /* Storage */,
+				CED4F487268EB5550071E832 /* View controllers */,
+				CE12831D26856B8900FD4BB2 /* Habits Collecton View Cells */,
 				CE12831C26856B4800FD4BB2 /* Extensions */,
-				CE12831D26856B8900FD4BB2 /* Habits Collecton View */,
-				CE7DAAFD267F1B7B00458FA1 /* HabitViewController.swift */,
-				CED4F477268B05FE0071E832 /* HabitDetailsViewController.swift */,
-				CEB2AC7B267F02DE000AF36F /* HabitsStore.swift */,
-				CEB2AC81267F06B4000AF36F /* InfoViewController.swift */,
+				CED4F4742685B6600071E832 /* Storage */,
+				CE12831F268573B000FD4BB2 /* Supporting */,
 				CE61D712267B2E8F001C600D /* Main.storyboard */,
 				CE61D717267B2E98001C600D /* LaunchScreen.storyboard */,
 				CE61D71A267B2E98001C600D /* Info.plist */,
@@ -121,9 +117,21 @@
 		CED4F4742685B6600071E832 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				CEB2AC7B267F02DE000AF36F /* HabitsStore.swift */,
 				CE61D715267B2E98001C600D /* Assets.xcassets */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		CED4F487268EB5550071E832 /* View controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CEB2AC81267F06B4000AF36F /* InfoViewController.swift */,
+				CE61D710267B2E8F001C600D /* HabitsViewController.swift */,
+				CE7DAAFD267F1B7B00458FA1 /* HabitViewController.swift */,
+				CED4F477268B05FE0071E832 /* HabitDetailsViewController.swift */,
+			);
+			path = "View controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
