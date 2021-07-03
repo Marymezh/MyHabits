@@ -9,24 +9,46 @@ import UIKit
 
 class HabitDetailsViewController: UIViewController {
     
-    var habit: Habit? 
+    var habit: Habit?
     
     let tableView = UITableView(frame: .zero, style: .grouped)
-    
     let cellID = "CellID"
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.tintColor = UIColor.purpleTheme
-        navigationItem.title = habit?.name
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action:  #selector(tapEditButton))
+        setupNavigation()
+        setupViews()
         
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(goToHabitsVC), name: NSNotification.Name(rawValue: "goToHabitsVC"), object: nil)
+    }
+    
+    @objc func goToHabitsVC() {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(false)
+        
+        navigationItem.title = habit?.name
+        NotificationCenter.default.addObserver(self, selector: #selector(changeTitle), name: NSNotification.Name(rawValue: "changeTitle"), object: nil)
+    }
+    
+    @objc func changeTitle() {
+        navigationItem.title = habit?.name
+    }
+    
+    func setupNavigation() {
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.tintColor = UIColor.purpleTheme
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Править", style: .plain, target: self, action:  #selector(tapEditButton))
+    }
+    
+    func setupViews() {
+        
         view.addSubview(tableView)
         tableView.toAutoLayout()
         
@@ -37,12 +59,15 @@ class HabitDetailsViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ]
-
+        
         NSLayoutConstraint.activate(constraints)
     }
     
     @objc func tapEditButton() {
-        print ("Edit button is pressed")
+        let habitVC = HabitViewController()
+        habitVC.habit = habit
+        let navController = UINavigationController(rootViewController: habitVC)
+        self.present(navController, animated: true, completion: nil)
     }
 }
 

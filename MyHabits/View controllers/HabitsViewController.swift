@@ -17,10 +17,10 @@ class HabitsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupAppearance()
         setupCollectionView()
-}
+    }
     func setupAppearance() {
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor.navBarTheme
@@ -28,7 +28,6 @@ class HabitsViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
-
     }
     
     func setupCollectionView() {
@@ -134,4 +133,5 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout {
         }
     }
 }
+
 
