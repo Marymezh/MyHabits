@@ -9,10 +9,21 @@ import UIKit
 
 class HabitDetailsViewController: UIViewController {
     
-    var habit: Habit?
+    var habit: Habit
     
     let tableView = UITableView(frame: .zero, style: .grouped)
     let cellID = "CellID"
+    
+    
+    init (habit: Habit) {
+        self.habit = habit
+        super.init(nibName: nil, bundle: nil)
+
+    }
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,12 +44,12 @@ class HabitDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         
-        navigationItem.title = habit?.name
+        navigationItem.title = habit.name
         NotificationCenter.default.addObserver(self, selector: #selector(changeTitle), name: NSNotification.Name(rawValue: "changeTitle"), object: nil)
     }
     
     @objc func changeTitle() {
-        navigationItem.title = habit?.name
+        navigationItem.title = habit.name
     }
     
     func setupNavigation() {
@@ -81,12 +92,12 @@ extension HabitDetailsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
        
         let datesTracked = HabitsStore.shared.dates.count - indexPath.item - 1
-        cell.textLabel?.text = "\(HabitsStore.shared.trackDateString(forIndex: datesTracked) ?? "") "
+        cell.textLabel?.text = HabitsStore.shared.trackDateString(forIndex: datesTracked)
         cell.tintColor = UIColor.purpleTheme
 
         let selectedHabit = self.habit
             let date = HabitsStore.shared.dates[datesTracked]
-        if HabitsStore.shared.habit(selectedHabit!, isTrackedIn: date) {
+        if HabitsStore.shared.habit(selectedHabit, isTrackedIn: date) {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
