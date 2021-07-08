@@ -97,8 +97,7 @@ extension HabitsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
-        case 1: let vc = HabitDetailsViewController()
-            vc.habit = store.habits[indexPath.row]
+        case 1: let vc = HabitDetailsViewController(habit: store.habits[indexPath.row])
             navigationController?.pushViewController(vc, animated: true)
 
         default: break
