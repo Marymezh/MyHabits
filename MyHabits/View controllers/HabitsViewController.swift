@@ -13,6 +13,7 @@ class HabitsViewController: UIViewController {
     private lazy var habitsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     let store = HabitsStore.shared
 
+
     let appearance = UINavigationBarAppearance()
     
     override func viewDidLoad() {
@@ -21,6 +22,7 @@ class HabitsViewController: UIViewController {
         setupAppearance()
         setupCollectionView()
     }
+    
     func setupAppearance() {
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor.navBarTheme
@@ -53,9 +55,10 @@ class HabitsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        HabitsStore.shared.habits.sort(by: { $0.date < $1.date })
         habitsCollectionView.reloadData()
+        
     }
-
 }
 
 extension HabitsViewController: UICollectionViewDataSource {
@@ -95,8 +98,9 @@ extension HabitsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
         case 1: let vc = HabitDetailsViewController()
-            vc.habit = (collectionView.cellForItem(at: indexPath) as! HabitCollectionViewCell).habit
+            vc.habit = store.habits[indexPath.row]
             navigationController?.pushViewController(vc, animated: true)
+
         default: break
             
         }

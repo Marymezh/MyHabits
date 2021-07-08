@@ -168,6 +168,7 @@ class HabitViewController: UIViewController {
             changedHabit.name = habitTextfield.text ?? ""
             changedHabit.date = timePicker.date
             changedHabit.color = colorButton.backgroundColor ?? .white
+            HabitsStore.shared.save()
         } else {
             let newHabit = Habit(name: habitTextfield.text ?? "",
                                  date: timePicker.date,
